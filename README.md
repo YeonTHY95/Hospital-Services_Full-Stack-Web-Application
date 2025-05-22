@@ -1,6 +1,6 @@
-# Hopsital Web Application
+# Hopsital Services Full Stack Web Application
 
-<p align="center">This is the demonstration of <b>Hospital Web Application</b></p>
+<p align="center">This is the demonstration of <b>Hospital Services Full Stack Web Application</b></p>
 <p align="center">Video Demonstration : </p>
 
 ## Table of Contents
@@ -13,7 +13,7 @@
 
 ## Background
 
-This is a web application demonstration built with NextJS, TypeScript, Tailwind CSS, PostgreSQL and so on. The patient can review and make appointment with doctor after signin whereas doctor can review and make report after appointment.
+This is a full stack web application demonstration built with NextJS, TypeScript, Tailwind CSS, PostgreSQL and so on. The patient can review and make appointment with doctor after signin whereas doctor can review and make report after appointment.
 
 ### Search Result
 ![search](./public/hospital-ss-search.png)
@@ -62,7 +62,7 @@ Images source : FreePik, https://www.freepik.com/
 Make sure you have the following installed on your machine:
 - NodeJS
 - npm (Node Package Manager)
-- Git
+- PostgreSQL
 
 ### Cloning the Repository
  > git clone https://github.com/YeonTHY95/Hospital-Services_Full-Stack-Web-Application.git
@@ -91,5 +91,5 @@ To populate database with Doctor Info from file seed.ts
 
 > npm run dev
 
-Open http://localhost:3000 in your browser to view the project.
+Open http://localhost:3000 in your browser to view the project. Make sure PostgreSQL is up and running
 

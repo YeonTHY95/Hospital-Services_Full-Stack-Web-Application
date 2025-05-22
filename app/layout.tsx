@@ -5,7 +5,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { cookies} from 'next/headers';
 import { decrypt } from "@/lib/session";
-import OurServicesComponent from "@/components/ourservices";
+import OurServicesComponent from "@/components/ourServices";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

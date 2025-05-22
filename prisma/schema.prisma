@@ -32,6 +32,7 @@ model Doctor {
   password      String
   sex           String
   role          String
+  age           Int
   Appointment   Appointment[]
 }
 
@@ -43,6 +44,7 @@ model User {
   email         String?          @unique
   emailVerified DateTime?
   image         String?
+  age           Int
   role          String
   Appointment   Appointment[]
   accounts      Account[]

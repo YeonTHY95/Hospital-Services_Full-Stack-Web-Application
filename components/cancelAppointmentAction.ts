@@ -7,6 +7,8 @@ const cancelAppointmentAction = async ( prevState: string, formData: FormData ) 
 
     const id = Number(formData.get('appointmentID'));
 
+    console.log("Inside cancelAppointmentAction, appointmentID from formData is:", formData.get('appointmentID'));
+
     const appointment = await prisma.appointment.update({
         where : {
             appointmentID : id

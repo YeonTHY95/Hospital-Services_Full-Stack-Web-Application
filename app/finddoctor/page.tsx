@@ -1,6 +1,6 @@
 import React from 'react';
 import prisma from '@/lib/prisma';
-import FindDoctorForm from '@/components/finddoctorform';
+import FindDoctorForm from '@/components/findDoctorForm';
 import FindDoctorWithSpecialityForm from '@/components/findDoctorWithSpecialityForm';
 import DoctorListComponent from '@/components/doctorListComponent';
 import PaginationComponent from '@/components/paginationComponent';

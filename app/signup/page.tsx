@@ -11,6 +11,7 @@ const SignUpPage = () => {
     const [ signUpPassword, setSignUpPassword] = useState<string>("") ;
     const [ role, setRole] = useState<string | "Doctor" | "Patient">("") ;
     const [ sex, setSex] = useState<"Male" | "Female" | string>("");
+    const [ age, setAge] = useState<number | undefined>(0);
     const [ doctorinfoID, setDoctorinfoID] = useState< "" | string>("");
 
     const [ signUpNameErrorMessage , setSignUpNameErrorMessage] = useState('') ;
@@ -32,6 +33,14 @@ const SignUpPage = () => {
             }
             case "Password is required" : {
                 setSignUpPasswordErrorMessage("Password is required");
+                break;
+            }
+            case "Age is required" : {
+                setSignUpNameErrorMessage("Age is required");
+                break;
+            }
+            case "Age must be a number" : {
+                setSignUpNameErrorMessage("Age must be a number");
                 break;
             }
             case "Must select either Male or Female" : {
@@ -64,7 +73,7 @@ const SignUpPage = () => {
             }
         }
 
-    },[state]);
+    },[state, isPending]);
 
   return (
     <Form action={formAction} ref={signupForm} id="signUpForm" className='w-full h-full flex justify-center items-center gap-[5px]'>
@@ -85,6 +94,13 @@ const SignUpPage = () => {
                             </label>
                             <input className="p-[3px] border-[2px] rounded-md w-full" id="password" type="password" placeholder="Password" name="signup_password" value={ signUpPassword } onChange = {(event) => { setSignUpPassword(event.target.value) ;  signupForm.current?.classList.remove("formerror");setSignUpNameErrorMessage("");setSignUpPasswordErrorMessage(""); }} data-testid="testlogin_password" required />
                             { signUpPasswordErrorMessage && <p style={{ color:'red', fontSize:"30px"}}>{signUpPasswordErrorMessage}</p> }
+                        </div>
+                        <div>
+                            <label htmlFor="age" className='text-[20px]'>
+                            <span>Age : </span>
+                            </label>
+                            <input className="p-[3px] border-[2px] rounded-md w-full" id="age" type="number" placeholder="Age" name="age" value={ age } onChange = {(event) => { setAge(Number(event.target.value)) ;  signupForm.current?.classList.remove("formerror");setSignUpNameErrorMessage("");setSignUpPasswordErrorMessage(""); }} data-testid="testlogin_password" required />
+                            { signUpNameErrorMessage && <p style={{ color:'red', fontSize:"30px"}}>{signUpNameErrorMessage}</p> }
                         </div>
                         <div>
                             <label htmlFor="male" >

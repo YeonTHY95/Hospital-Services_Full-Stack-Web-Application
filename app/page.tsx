@@ -1,6 +1,6 @@
 import Image from "next/image";
 import ImageSlider from "@/components/imageslider";
-import FindDoctorForm from "@/components/finddoctorform";
+import FindDoctorForm from "@/components/findDoctorForm";
 import SpecialityForm from "@/components/specialityForm";
 import prisma from '@/lib/prisma';
 

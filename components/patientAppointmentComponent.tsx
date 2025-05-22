@@ -1,5 +1,5 @@
 "use client";
-import React ,{useState, useActionState} from 'react';
+import React ,{useState, useActionState, useEffect} from 'react';
 import Form from 'next/form';
 import prisma from '@/lib/prisma';
 import toast, { Toaster } from 'react-hot-toast';
@@ -20,6 +20,19 @@ const PatientAppointmentComponent = ({ doctorName, appointmentDate, symptom, sta
     const router = useRouter();
     const [cancelState, cancelAction, isCancelPending] = useActionState(cancelAppointmentAction,"") ;
 
+
+    useEffect(() => {
+        switch(cancelState) {
+            case "Appointment cancelled successfully!" : {
+                toast.success("Appointment cancelled successfully!");
+                router.refresh();
+                break;
+            }
+
+        }
+    }
+    ,[cancelState, isCancelPending]);
+    
   return (
     <div className='border-1 rounded-md m-[5px]'>
         <Toaster />
@@ -44,6 +57,7 @@ const PatientAppointmentComponent = ({ doctorName, appointmentDate, symptom, sta
             ( status === "Cancelled" || status =="Completed") ? <></> :
             (<><div className='row-start-1 row-end-2 col-start-3 col-end-4 self-center'>
                 <Form action={ cancelAction} >
+                    <input type="hidden" name="appointmentID" value={appointmentID} />
                     <button disabled={ (status === "Completed" )|| (status === "Cancelled" )} className='ml-[10px] mt-[10px] p-[10px] bg-red-500 rounded-md text-white font-bold hover:cursor-pointer hover:bg-red-700'>{ isCancelPending ? <span>Cancelling</span>: <span>Cancel Appointment</span>}</button>
                     </Form>
             </div>

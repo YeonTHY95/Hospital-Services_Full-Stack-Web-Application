@@ -1,19 +1,9 @@
 "use client";
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import Link from "next/link";
-import { clsx } from 'clsx';
 
 const OurServicesComponent = () => {
 
-    const [isHover, setIsHover ] = useState(false);
-
-    const setTrueHover = () => {
-        setIsHover(true);
-    }
-    const setFalseHover = () => {
-        setTimeout(()=> {setIsHover(false);},2000);
-        //setIsHover(false);
-    }
 
   return (
     <span className='ourservicescontainer'>

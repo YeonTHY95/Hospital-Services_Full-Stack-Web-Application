@@ -9,6 +9,7 @@ const signupAction = async (prevState : string, formData:FormData ): Promise<str
     const signupPassword = formData.get('signup_password');
     const sex = formData.get('sex');
     const role = formData.get('role');
+    const age = Number(formData.get('age'));
 
     const signupZodSchema = z.object({
         signupUsername: 
@@ -26,12 +27,15 @@ const signupAction = async (prevState : string, formData:FormData ): Promise<str
             // .trim(),
         sex: z.enum(["Male", "Female"], { message:"Must select either Male or Female"}),
         role: z.enum(["Patient", "Doctor"], { message:"Must select either Patient or Doctor"}),
-    });
+        age: z.number({
+            required_error: "Age is required",
+            invalid_type_error: "Age must be a number",}).int(),
+        });
 
-    const signupValidationResult = signupZodSchema.safeParse({signupUsername,signupPassword,sex, role});
+    const signupValidationResult = signupZodSchema.safeParse({signupUsername,signupPassword,sex, role, age});
 
     if (signupValidationResult.success){
-        const { signupUsername, signupPassword, sex, role } =  signupValidationResult.data ;
+        const { signupUsername, signupPassword, sex, role, age} =  signupValidationResult.data ;
 
         if (role === "Patient") {
             const existingUser = await prisma.user.findUnique({
@@ -57,6 +61,7 @@ const signupAction = async (prevState : string, formData:FormData ): Promise<str
                           password: hash,
                           role : role,
                           sex : sex,
+                          age : age
                         },
                     });
                     if (newUser) {
@@ -70,28 +75,6 @@ const signupAction = async (prevState : string, formData:FormData ): Promise<str
                 else {
                     return "Hashing Error";
                 }
-                bcrypt.hash(signupPassword, 10, async function(err, hash) {
-                    if (err) {
-                        console.log(err);
-                        return "Hashing Error";
-                    }
-                    
-                    const newUser = await prisma.user.create({
-                        data: {
-                          username: signupUsername,
-                          password: hash,
-                          role : role,
-                          sex : sex,
-                        },
-                    });
-                    if (newUser) {
-                        console.log("User created successfully.");
-                        return "User created successfully.";
-                    }
-                    else {
-                        return "User fails to create, please try again";
-                    }
-                });
                 
             }
         }
@@ -126,6 +109,7 @@ const signupAction = async (prevState : string, formData:FormData ): Promise<str
                               password: hash,
                               role : role,
                               sex : sex,
+                              age : age
                             //   info : {
                             //     connect :  {
                             //         id : doctorInfoIDValidation.data,

@@ -17,7 +17,7 @@ const UserView = async () => {
     const session = await decrypt(cookie) ;
     const username = session?.userId as string;
     if (username) {
-    const userinfo = await prisma.user.findFirst({
+    const user = await prisma.user.findFirst({
       where : {
         username : username
       },
@@ -27,9 +27,9 @@ const UserView = async () => {
       }
     });
 
-    if(!userinfo) {
+    if(!user) {
       // It could be a doctor
-      const userinfo = await prisma.doctor.findFirst({
+      const doctor = await prisma.doctor.findFirst({
         where : {
           username : username
         },
@@ -38,9 +38,9 @@ const UserView = async () => {
           role : true
         }
       });
-      if (userinfo) {
-        role = userinfo.role;
-        name = userinfo.username;
+      if (doctor) {
+        role = doctor.role;
+        name = doctor.username;
         console.log("The role is ",role);
       }
       else {
@@ -50,8 +50,8 @@ const UserView = async () => {
     }
     else {
       // It is a patient
-      role = userinfo.role;
-      name = userinfo.username;
+      role = user.role;
+      name = user.username;
       console.log("The role is ",role);
     }
 
@@ -65,7 +65,7 @@ const UserView = async () => {
         <Link href={`/userview/myappointment?username=${name}&role=${role}`} className='text-3xl font-bold'>View my Appointment</Link>
       </div>
       <div>
-        <Link href={`/userview/myinfo?role=${role}`} className='text-3xl font-bold'>View my Personal Information</Link>
+        <Link href={`/userview/myinfo?role=${role}&name=${name}`} className='text-3xl font-bold'>View my Personal Information</Link>
       </div>
     </div>
   )
