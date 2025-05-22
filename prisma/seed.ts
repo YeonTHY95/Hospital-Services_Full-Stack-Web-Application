@@ -1,4 +1,5 @@
-import { PrismaClient, Prisma } from '@prisma/client'
+import { PrismaClient, Prisma } from '@prisma/client';
+import bcrypt from "bcrypt";
 
 const prisma = new PrismaClient();
 
@@ -393,10 +394,12 @@ async function main() {
       data : doctor
     });
 
+    const hashedPassword = await bcrypt.hash("test", 10);
+
     await prisma.doctor.create ({
       data : {
         username : doctor.name.split(" ")[1].toLowerCase(),
-        password : "test",
+        password : hashedPassword,
         sex :    "Male",
         age :    Math.floor(Math.random() * (50 - 25 + 1)) + 25, // Random number from 25 to 49
         role  :  "Doctor",
